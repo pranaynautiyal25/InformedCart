@@ -1,0 +1,134 @@
+/* ── Landing.css ── */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Georgia", serif;
+}
+
+/* Page wrapper */
+.landing-page {
+  min-height: 100vh;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+/* Card */
+.landing-card {
+  background: #ffffff;
+  border: 1px solid #e0ddd6;
+  border-radius: 4px;
+  padding: 48px 40px;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Badge */
+.landing-badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888;
+  border: 1px solid #ddd;
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 28px;
+}
+
+/* Heading block */
+.landing-heading h1 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.landing-heading p {
+  font-size: 15px;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+/* Description */
+.landing-desc p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* Buttons */
+.landing-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.landing-button {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: 2px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.landing-primary {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.landing-primary:hover {
+  background: #333;
+}
+
+.landing-secondary {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+}
+
+.landing-secondary:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* Feature boxes */
+.landing-features {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid #e8e5de;
+  padding-top: 32px;
+}
+
+.feature-box {
+  flex: 1;
+}
+
+.feature-box h3 {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.feature-box p {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+}

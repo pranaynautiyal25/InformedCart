@@ -1,0 +1,142 @@
+/* ── Login.css ── */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Georgia", serif;
+}
+
+/* Page wrapper */
+.login-page {
+    min-height: 100vh;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+/* Card */
+.login-card {
+    background: #ffffff;
+    border: 1px solid #e0ddd6;
+    border-radius: 4px;
+    padding: 48px 40px;
+    max-width: 420px;
+    width: 100%;
+}
+
+/* Header */
+.login-header {
+    margin-bottom: 32px;
+}
+
+.login-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.login-header p {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+}
+
+/* Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #555;
+    font-family: "Georgia", serif;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d9d6cf;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #fafaf8;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+
+.login-input:focus {
+    border-color: #1a1a1a;
+    background: #fff;
+}
+
+.login-input::placeholder {
+    color: #bbb;
+}
+
+/* Error */
+.error-text {
+    font-size: 12px;
+    color: #c0392b;
+}
+
+/* Submit button */
+.login-button {
+    margin-top: 8px;
+    padding: 12px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: "Georgia", serif;
+}
+
+.login-button:hover:not(:disabled) {
+    background: #333;
+}
+
+.login-button:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+/* Footer */
+.login-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+}
+
+.login-footer a {
+    color: #1a1a1a;
+    text-decoration: underline;
+}
+
+.login-footer a:hover {
+    color: #555;
+}
