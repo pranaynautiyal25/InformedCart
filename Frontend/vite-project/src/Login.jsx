@@ -101,6 +101,9 @@ const Login = () => {
           <p>
             New here? <Link to="/signup">Create account</Link>
           </p>
+          <p>
+            <Link to="/">Home Page</Link>
+          </p>
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ const SignUp = () => {
 
       // backend api call later
       // await axios.post(...)
-      navigate("/dashboard");
+      navigate("/login");
     } catch (err) {
       alert("Sign up failed");
     } finally {
@@ -124,6 +124,9 @@ const SignUp = () => {
         <div className="signup-footer">
           <p>
             Already have an account? <Link to="/login">Log in</Link>
+          </p>
+          <p>
+            <Link to="/">Home Page</Link>
           </p>
         </div>
       </div>
