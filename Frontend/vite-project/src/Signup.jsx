@@ -7,6 +7,8 @@ import {
   getUsernameError,
 } from "./config/validator";
 
+import instance from './config/axios';
+
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ const SignUp = () => {
       setLoading(true);
 
       // backend api call later
-      // await axios.post(...)
+      await instance.post('/auth/signup', form);
       navigate("/login");
     } catch (err) {
       alert("Sign up failed");
