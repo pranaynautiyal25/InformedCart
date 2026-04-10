@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate, Link } from "react-router-dom";
 import { getEmailError, getPasswordError } from "./config/validator";
+import instance from './config/axios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,8 +44,7 @@ const Login = () => {
     try {
       setLoading(true);
 
-      // backend api call later
-      // await axios.post(...)
+      await instance.post('/auth/login', form);
       navigate("/dashboard");
     } catch (err) {
       alert("Login failed");

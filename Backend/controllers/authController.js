@@ -87,7 +87,6 @@ const login = async (req, res) => {
 
         res.status(200).json({
             message: "Login successful",
-            accessToken,
             user: {
                 id: user._id,
                 username: user.username,
