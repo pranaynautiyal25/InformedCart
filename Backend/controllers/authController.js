@@ -41,17 +41,30 @@ const signup = async (req, res) => {
 
         await newUser.save();
 
+        const accessToken = createAccessToken(newUser);
+        const refreshToken = createRefreshToken(newUser);
 
-        res.status(201).json({
+        newUser.refreshToken = refreshToken;
+        await newUser.save();
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: false, // true in production with HTTPS
+            sameSite: "strict",
+        });
+
+        return res.status(201).json({
             message: "User created successfully",
             user: {
                 id: newUser._id,
                 username: newUser.username,
                 email: newUser.email,
+                accessToken,
+                refreshToken,
             },
         });
     } catch (error) {
-        res.status(500).json({ message: "Signup failed", error: error.message });
+        return res.status(500).json({ message: "Signup failed", error: error.message });
     }
 };
 
@@ -85,18 +98,18 @@ const login = async (req, res) => {
             sameSite: "strict",
         });
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Login successful",
             user: {
                 id: user._id,
                 username: user.username,
                 email: user.email,
-                refreshToken: refreshToken,
-                accessToken: accessToken,
+                accessToken,
+                refreshToken,
             },
         });
     } catch (error) {
-        res.status(500).json({ message: "Login failed", error: error.message });
+        return res.status(500).json({ message: "Login failed", error: error.message });
     }
 };
 
