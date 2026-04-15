@@ -45,6 +45,7 @@ const Login = () => {
       setLoading(true);
 
       await instance.post('/auth/login', form);
+      console.log("Login successful");
       navigate("/dashboard");
     } catch (err) {
       alert("Login failed");

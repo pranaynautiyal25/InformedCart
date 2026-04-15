@@ -41,7 +41,7 @@ const signup = async (req, res) => {
 
         await newUser.save();
 
-        
+
         res.status(201).json({
             message: "User created successfully",
             user: {
@@ -91,6 +91,8 @@ const login = async (req, res) => {
                 id: user._id,
                 username: user.username,
                 email: user.email,
+                refreshToken: refreshToken,
+                accessToken: accessToken,
             },
         });
     } catch (error) {
