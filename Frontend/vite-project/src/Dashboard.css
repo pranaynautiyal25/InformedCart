@@ -1,1 +1,136 @@
-    
+/* ── Dashboard.css ── */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Georgia", serif;
+    background-color: #f5f4f0;
+}
+
+/* ── Page ── */
+.dashboard-page {
+    min-height: 100vh;
+    background-color: #f5f4f0;
+}
+
+/* ── Header / Nav ── */
+.dashboard-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e0ddd6;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dashboard-logo {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+}
+
+.dashboard-tagline {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.dashboard-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboard-greeting {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+}
+
+.dashboard-logout {
+    background: transparent;
+    border: 1px solid #1a1a1a;
+    color: #1a1a1a;
+    padding: 7px 18px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: "Georgia", serif;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dashboard-logout:hover {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* ── Main ── */
+.dashboard-main {
+    max-width: 720px;
+    margin: 48px auto;
+    padding: 0 16px;
+}
+
+/* ── Section ── */
+.dashboard-section {
+    background: #ffffff;
+    border: 1px solid #e0ddd6;
+    border-radius: 4px;
+    padding: 36px 40px;
+}
+
+.section-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.section-desc {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+/* ── Divider ── */
+.dashboard-divider {
+    height: 32px;
+}
+
+/* ── Placeholder ── */
+.dashboard-placeholder {
+    border: 1px dashed #d9d6cf;
+    border-radius: 2px;
+    padding: 40px;
+    text-align: center;
+    color: #bbb;
+    font-size: 13px;
+    font-style: italic;
+}

@@ -47,10 +47,16 @@ const signup = async (req, res) => {
         newUser.refreshToken = refreshToken;
         await newUser.save();
 
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+        });
+
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: false, // true in production with HTTPS
-            sameSite: "strict",
+            secure: false,
+            sameSite: "lax",
         });
 
         return res.status(201).json({
@@ -92,11 +98,20 @@ const login = async (req, res) => {
         user.refreshToken = refreshToken;
         await user.save();
 
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+        });
+
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: false, // true in production with HTTPS
-            sameSite: "strict",
+            secure: false,
+            sameSite: "lax",
         });
+
+        console.log("access token:", accessToken);
+        console.log("refresh token:", refreshToken);
 
         return res.status(200).json({
             message: "Login successful",
@@ -117,27 +132,42 @@ const logout = async (req, res) => {
     try {
         const refreshToken = req.cookies.refreshToken;
 
-        if (!refreshToken) {
-            return res.status(400).json({ message: "No refresh token found" });
+        if (refreshToken) {
+            const user = await User.findOne({ refreshToken });
+
+            if (user) {
+                user.refreshToken = null;
+                await user.save();
+            }
         }
 
-        const user = await User.findOne({ refreshToken });
-
-        if (user) {
-            user.refreshToken = null;
-            await user.save();
-        }
-
+        // 🔥 Clear BOTH cookies
         res.clearCookie("refreshToken", {
             httpOnly: true,
-            secure: false, // true in production with HTTPS
-            sameSite: "strict",
+            secure: false,
+            sameSite: "lax",
+        });
+
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
         });
 
         return res.status(200).json({ message: "Logout successful" });
     } catch (error) {
-        return res.status(500).json({ message: "Logout failed", error: error.message });
+        return res.status(500).json({
+            message: "Logout failed",
+            error: error.message,
+        });
     }
 };
 
-module.exports = { signup, login, logout };
+const me = async (req, res) => {
+    return res.status(200).json({
+        message: "User logged in",
+        user: req.user
+    })
+}
+
+module.exports = { signup, login, logout, me };

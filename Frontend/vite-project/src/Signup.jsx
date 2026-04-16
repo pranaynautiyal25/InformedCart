@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Signup.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import {
   getEmailError,
   getPasswordError,
   getUsernameError,
 } from "./config/validator";
-
-import instance from './config/axios';
+import instance from "./config/axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  const [checking, setChecking] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const [form, setForm] = useState({
     username: "",
@@ -25,6 +27,21 @@ const SignUp = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await instance.get("/auth/me");
+        setLoggedIn(true);
+      } catch (error) {
+        setLoggedIn(false);
+      } finally {
+        setChecking(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,15 +70,29 @@ const SignUp = () => {
     try {
       setLoading(true);
 
-      // backend api call later
-      await instance.post('/auth/signup', form);
-      navigate("/login");
+      await instance.post("/auth/signup", form);
+
+      // if backend sets cookies on signup, go directly to dashboard
+      navigate("/dashboard");
+
+      // if you want signup -> login instead, use this:
+      // navigate("/login");
     } catch (err) {
-      alert("Sign up failed");
+      const errorMessage = err.response?.data?.message || err.message || "Sign up failed";
+      alert(errorMessage);
+      console.error("Signup error:", err.response?.data);
     } finally {
       setLoading(false);
     }
   };
+
+  if (checking) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (loggedIn) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="signup-page">
@@ -82,6 +113,7 @@ const SignUp = () => {
               placeholder="Enter your username"
               value={form.username}
               onChange={handleChange}
+              autoComplete="username"
             />
             {errors.username && (
               <span className="error-text">{errors.username}</span>
@@ -98,6 +130,7 @@ const SignUp = () => {
               placeholder="Enter your email"
               value={form.email}
               onChange={handleChange}
+              autoComplete="email"
             />
             {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
@@ -112,6 +145,7 @@ const SignUp = () => {
               placeholder="Enter your password"
               value={form.password}
               onChange={handleChange}
+              autoComplete="new-password"
             />
             {errors.password && (
               <span className="error-text">{errors.password}</span>

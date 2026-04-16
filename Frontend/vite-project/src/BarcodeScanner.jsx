@@ -39,7 +39,7 @@ export default function BarcodeScanner() {
       },
       (err) => {
         if (err) {
-          setError("Camera error. Use upload.");
+          setError("Camera error. Please try uploading an image instead.");
           return;
         }
         Quagga.start();
@@ -52,7 +52,6 @@ export default function BarcodeScanner() {
 
       setBarcode(code);
       setIsScanning(false);
-
       Quagga.stop();
       Quagga.offDetected(onDetected);
     };
@@ -96,7 +95,7 @@ export default function BarcodeScanner() {
           if (result && result.codeResult) {
             setBarcode(result.codeResult.code);
           } else {
-            setError("No barcode found in image");
+            setError("No barcode found in image.");
           }
         }
       );
@@ -106,35 +105,50 @@ export default function BarcodeScanner() {
   };
 
   return (
-    <div className="bc-container">
-      <h2>Barcode Scanner</h2>
+    <div className="bc-wrapper">
 
-      <div className="controls">
+      {/* Controls row */}
+      <div className="bc-controls">
         {!isScanning ? (
-          <button onClick={() => setIsScanning(true)}>Start Camera</button>
+          <button className="bc-btn bc-btn-primary" onClick={() => setIsScanning(true)}>
+            Start Camera
+          </button>
         ) : (
-          <button onClick={() => setIsScanning(false)}>Stop</button>
+          <button className="bc-btn bc-btn-danger" onClick={() => setIsScanning(false)}>
+            Stop Camera
+          </button>
         )}
 
-        <label className="upload">
-          Upload
-          <input type="file" accept="image/*" onChange={handleUpload} />
+        <label className="bc-btn bc-btn-secondary">
+          Upload Image
+          <input type="file" accept="image/*" onChange={handleUpload} hidden />
         </label>
       </div>
 
-      <div className="scanner-box">
-        <div ref={scannerRef} className="camera" />
+      {/* Camera view */}
+      {isScanning && (
+        <div className="bc-scanner-box">
+          <div ref={scannerRef} className="bc-camera" />
+          <div className="bc-scan-overlay" />
+        </div>
+      )}
 
-        {isScanning && <div className="scan-box"></div>}
+      {/* Image preview after upload */}
+      {preview && !isScanning && (
+        <div className="bc-preview-box">
+          <img src={preview} alt="Uploaded barcode" className="bc-preview" />
+        </div>
+      )}
+
+      {/* Error */}
+      {error && <p className="bc-error">{error}</p>}
+
+      {/* Result */}
+      <div className="bc-result">
+        <span className="bc-result-label">DETECTED BARCODE</span>
+        <span className="bc-result-value">{barcode || "—"}</span>
       </div>
 
-      {preview && <img src={preview} className="preview" />}
-
-      {error && <p className="error">{error}</p>}
-
-      <p className="result">
-        <b>Result:</b> {barcode || "None"}
-      </p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Landing from './Landing'
 import Signup from './Signup'
 import Login from './Login'
 import BarcodeScanner from './BarcodeScanner'
+import ProtectedRoute from './ProtectedRoute'
 
 import './App.css'
 
@@ -19,8 +20,16 @@ function App() {
           <Route path="/" element={<Landing></Landing>}></Route>
           <Route path="/signup" element={<Signup></Signup>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
-          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
-          <Route path="/scanner" element={<BarcodeScanner></BarcodeScanner>}></Route>
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard></Dashboard>
+            </ProtectedRoute>
+          }></Route>
+          <Route path="/scanner" element={
+            <ProtectedRoute>
+              <BarcodeScanner></BarcodeScanner>
+            </ProtectedRoute>
+          }></Route>
         </Routes>
       </Router>
     </div>

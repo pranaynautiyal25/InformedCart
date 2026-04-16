@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import { getEmailError, getPasswordError } from "./config/validator";
-import instance from './config/axios';
+import instance from "./config/axios";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const [checking, setChecking] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const [form, setForm] = useState({
     email: "",
@@ -18,6 +21,21 @@ const Login = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await instance.get("/auth/me");
+        setLoggedIn(true);
+      } catch (error) {
+        setLoggedIn(false);
+      } finally {
+        setChecking(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,15 +62,25 @@ const Login = () => {
     try {
       setLoading(true);
 
-      await instance.post('/auth/login', form);
+      await instance.post("/auth/login", form);
       console.log("Login successful");
       navigate("/dashboard");
     } catch (err) {
-      alert("Login failed");
+      const errorMessage = err.response?.data?.message || err.message || "Login failed";
+      alert(errorMessage);
+      console.error("Login error:", err.response?.data);
     } finally {
       setLoading(false);
     }
   };
+
+  if (checking) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (loggedIn) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="login-page">
@@ -72,6 +100,7 @@ const Login = () => {
               type="email"
               placeholder="Enter your email"
               value={form.email}
+              autoComplete="email"
               onChange={handleChange}
             />
             {errors.email && <span className="error-text">{errors.email}</span>}
@@ -87,6 +116,7 @@ const Login = () => {
               placeholder="Enter your password"
               value={form.password}
               onChange={handleChange}
+              autoComplete="current-password"
             />
             {errors.password && (
               <span className="error-text">{errors.password}</span>

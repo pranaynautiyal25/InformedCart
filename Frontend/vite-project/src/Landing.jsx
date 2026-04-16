@@ -1,8 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import instance from './config/axios';
 import "./Landing.css";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await instance.get("/auth/me");
+        navigate("/dashboard");
+      } catch (error) {
+        // stay on landing page
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   return (
     <div className="landing-page">
       <div className="landing-card">
