@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Quagga from "@ericblade/quagga2";
 import "./BarcodeScanner.css";
 
-export default function BarcodeScanner() {
+export default function BarcodeScanner({ barcodeH, setBarcodeH }) {
   const scannerRef = useRef(null);
   const [isScanning, setIsScanning] = useState(false);
   const [barcode, setBarcode] = useState("");
@@ -94,6 +94,7 @@ export default function BarcodeScanner() {
         (result) => {
           if (result && result.codeResult) {
             setBarcode(result.codeResult.code);
+            setBarcodeH(result.codeResult.code);
           } else {
             setError("No barcode found in image.");
           }
