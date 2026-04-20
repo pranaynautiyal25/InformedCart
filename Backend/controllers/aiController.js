@@ -16,6 +16,16 @@ const extractJSON = (text) => {
     return cleaned;
 };
 
+const generateImportantPoints= async(req,res)=>{
+    try{
+
+    }
+    catch(error){
+        console.error("Groq Question Gen Error:", error);
+        res.status(500).json({ error: "Failed to generate Important Points" });
+    }
+}
+
 
 const generateInfo = async (req, res) => {
     try {

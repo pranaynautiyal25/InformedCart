@@ -34,9 +34,13 @@ const Dashboard = () => {
         setProductData(null);
 
 
-        //will check dashboard 
+        //will check dashboard some issue in converting product
+        //will evaluate the way of respinse and do chanes accordingly.
+        
         const res = await instance.get(`/product/${barcodeH}`);
+
         const rawData = res.data.data;
+
 
         // ── Fetch AI-processed product info ──
         const aiRes = await instance.post("/ai/info", { rawData });
